@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEO Overview — huge-germany.com</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand:  '#004aef',
+            'brand-dark': '#0038c7',
+            yellow: '#ffce00',
+            cyan:   '#0dd1ff',
+            green:  '#00ffaa',
+            ink: { 50:'#f0f4ff', 100:'#dde3ff', 200:'#bbc6f7', 300:'#8f9de0', 400:'#6070bb', 500:'#3d4d99', 600:'#2a3880', 700:'#1a2560', 800:'#0e1540', 900:'#070c24' },
+            danger: '#dc2626',
+            warn:   '#d97706',
+            ok:     '#059669',
+          },
+          fontFamily: {
+            sans:    ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          },
+          boxShadow: { soft: '0 2px 8px 0 rgba(0,74,239,.08)' },
+          borderRadius: { card: '16px' },
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --blue:   #004aef;
+      --yellow: #ffce00;
+      --cyan:   #0dd1ff;
+      --green:  #00ffaa;
+      --bg:     #eef1ff;
+      --surface:#ffffff;
+      --border: #dde3ff;
+      --ink-900:#0e1540;
+      --ink-600:#3d4d99;
+      --ink-400:#8090c8;
+    }
+    body { background:var(--bg); font-family:'Plus Jakarta Sans',sans-serif; }
+    h1,h2,h3,.font-display { font-family:'Space Grotesk',sans-serif; }
+
+    /* ── Cards ── */
+    .card { background:var(--surface); border-radius:16px; border:1px solid var(--border); box-shadow:0 2px 8px 0 rgba(0,74,239,.07); }
+
+    /* ── Section label ── */
+    .section-label {
+      display:inline-flex; align-items:center; gap:6px;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em;
+      color:var(--blue); margin-bottom:14px;
+    }
+    .section-label::before { content:'✦'; color:var(--yellow); font-size:10px; }
+    .section-title { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--blue); margin-bottom:14px; }
+    .section-title::before { content:'✦ '; color:var(--yellow); }
+
+    /* ── Metrics ── */
+    .metric-val   { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:700; color:var(--ink-900); line-height:1; }
+    .metric-label { font-size:11px; color:var(--ink-400); margin-top:5px; }
+
+    /* ── Badges ── */
+    .badge-danger { background:#fff0f0; color:#c81e1e; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; border:1px solid #fcd0d0; }
+    .badge-warn   { background:#fffbe6; color:#96620a; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; border:1px solid #fde68a; }
+    .badge-ok     { background:#e6fff5; color:#037a56; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; border:1px solid #a7f3d0; }
+    .badge-brand  { background:#eef1ff; color:var(--blue); font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px; border:1px solid var(--border); }
+
+    /* ── Analysis box ── */
+    .analysis-box { background:#f4f6ff; border-left:3px solid var(--blue); padding:16px; border-radius:0 12px 12px 0; }
+    .analysis-box p { margin-bottom:10px; font-size:13px; line-height:1.7; color:#2a3880; }
+    .analysis-box p:last-child { margin-bottom:0; }
+    .analysis-box .label { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--blue); opacity:.7; margin-bottom:10px; }
+
+    /* ── Conclusion boxes ── */
+    .conclusion-box { border-left:4px solid; padding:14px 16px; border-radius:0 12px 12px 0; margin-bottom:10px; }
+    .conclusion-danger { background:#fff0f0; border-color:#dc2626; }
+    .conclusion-warn   { background:#fffbe6; border-color:#d97706; }
+    .conclusion-ok     { background:#e6fff5; border-color:#059669; }
+    .conclusion-box .title { font-family:'Space Grotesk',sans-serif; font-size:12px; font-weight:700; margin-bottom:6px; }
+    .conclusion-box p  { font-size:13px; line-height:1.65; color:#1a2560; margin:0; }
+
+    /* ── Tables ── */
+    table thead tr { background:#f4f6ff; }
+    table th { font-family:'Space Grotesk',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--blue); padding:10px 12px; text-align:left; }
+    table td { font-size:13px; color:var(--ink-900); padding:9px 12px; border-top:1px solid var(--border); }
+    .highlight-row td { background:#eef1ff; font-weight:600; }
+
+    /* ── Progress bars ── */
+    .progress-bar  { height:8px; border-radius:4px; background:var(--border); overflow:hidden; }
+    .progress-fill { height:100%; border-radius:4px; }
+
+    /* ── Rank colors ── */
+    .rank-1 { color:#059669; font-weight:700; }
+    .rank-2 { color:#d97706; font-weight:600; }
+    .rank-3 { color:#dc2626; font-weight:600; }
+
+    /* ── Section heading ── */
+    .section-heading { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+    .section-heading .num {
+      font-family:'Space Grotesk',sans-serif;
+      background:var(--blue); color:#fff;
+      font-size:12px; font-weight:700;
+      width:26px; height:26px; border-radius:8px;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
+    }
+    .section-heading h2 { font-family:'Space Grotesk',sans-serif; font-size:16px; font-weight:700; color:var(--ink-900); margin:0; }
+
+    /* ── Report header ── */
+    .report-header {
+      background:var(--blue);
+      border-radius:20px;
+      padding:28px 32px;
+      color:#fff;
+      position:relative; overflow:hidden;
+    }
+    .report-header::before {
+      content:'';
+      position:absolute; top:-60px; right:-60px;
+      width:220px; height:220px;
+      border:40px solid rgba(255,255,255,.08);
+      border-radius:50%;
+    }
+    .report-header::after {
+      content:'';
+      position:absolute; bottom:-80px; right:100px;
+      width:180px; height:180px;
+      border:30px solid rgba(255,255,255,.06);
+      border-radius:50%;
+    }
+    .seongon-badge {
+      display:inline-flex; align-items:center; gap:5px;
+      background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25);
+      border-radius:99px; padding:3px 10px;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:10px; font-weight:700; letter-spacing:.08em;
+      color:#fff; margin-bottom:14px;
+    }
+    .seongon-badge .star { color:var(--yellow); }
+  </style>
+</head>
+<body class="font-sans min-h-screen py-10 px-4" style="color:var(--ink-900)">
+
+<!-- ── HEADER ── -->
+<div class="max-w-5xl mx-auto mb-8">
+  <div class="report-header">
+    <div class="flex items-start justify-between flex-wrap gap-4" style="position:relative;z-index:1">
+      <div>
+        <div class="seongon-badge"><span class="star">✦</span> SEONGON · SEO Overview Report</div>
+        <h1 class="font-display text-3xl font-bold text-white mb-1">huge-germany.com</h1>
+        <p style="font-size:13px;color:rgba(255,255,255,.7);margin-top:4px">Thiết bị vệ sinh · So sánh vs enic.vn &amp; www.inax.com.vn</p>
+      </div>
+      <div class="text-right" style="flex-shrink:0">
+        <div style="font-size:11px;color:rgba(255,255,255,.6)">Dữ liệu: Ahrefs · Tháng 6/2026</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:3px">Tạo ngày 15/06/2026</div>
+        <div style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;background:rgba(220,38,38,.25);border:1px solid rgba(220,38,38,.4);color:#fca5a5;font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px">
+          ⚠ Grade D+ — SEO Audit 58/100
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── KẾT LUẬN TỔNG QUÁT ── -->
+<div class="max-w-5xl mx-auto mb-8">
+  <div class="card p-6">
+    <div class="section-title">Kết luận tổng quát</div>
+
+    <!-- Box 1: Traffic sụp đổ + 0 ranking ngành -->
+    <div class="conclusion-box conclusion-danger">
+      <div class="title" style="color:#dc2626">Traffic sụp đổ — không có ranking cạnh tranh trong ngành:</div>
+      <p>Traffic giảm từ peak <strong>15,885 lượt/tháng</strong> (Dec 2024) xuống còn <strong>3,786 lượt/tháng</strong> (Jun 2026) — mất <strong>76% trong 18 tháng</strong>. Số trang có traffic hữu cơ giảm từ <strong>312 trang</strong> (Jul 2025) xuống còn <strong>65 trang</strong> (Jun 2026), tức mất <strong>247 organic pages (-79%)</strong> trong 12 tháng. Đặc biệt nghiêm trọng: huge-germany.com <strong>không xuất hiện trong top 100 website</strong> cạnh tranh ngành thiết bị vệ sinh (bộ 1,406 từ khoá nghiên cứu) — tức là thực tế <strong>không có ranking nào</strong> trong ngành cốt lõi. Trong khi đó enic.vn đang có <strong>98,493 lượt/tháng</strong> và tăng +19% YoY, inax.com.vn có <strong>77,681 lượt/tháng</strong> — khoảng cách ngày càng nới rộng. SEO Audit chấm <strong>58/100 Grade D+</strong>: 38 lỗi kỹ thuật, 14 cảnh báo, tập trung ở On-page (Multiple H1 trên 99.9% trang, thiếu alt text 53%, meta desc không chuẩn 73% trang).</p>
+    </div>
+
+    <!-- Box 2: Backlink thảm họa -->
+    <div class="conclusion-box conclusion-danger" style="margin-top:8px">
+      <div class="title" style="color:#dc2626">Backlink đang ở mức nguy hiểm — có nguy cơ Google Penalty:</div>
+      <p>Tổng <strong>6,626 backlinks</strong> nhưng <strong>96.1% là spam</strong> — mức cực kỳ nguy hiểm, cao nhất trong 3 domain phân tích. Nguồn spam chính là <strong>beptungdang.vn</strong> (DR 6) với <strong>4,601 spam links</strong> chiếm 69.5% toàn bộ profile — cần disavow ngay lập tức. Chỉ có <strong>51 clean referring domains</strong> với avg DR 7.7 — không có coverage báo chí hay media uy tín. So sánh: enic.vn có <strong>185 clean domains</strong> (DR 31.7 avg) với editorial links từ YouTube DR 99, Thanh Niên DR 86, Tinhte DR 79; inax.com.vn có <strong>224 clean domains</strong> và được VnExpress (DR 90), Tuổi Trẻ (DR 86), Dân Trí (DR 85) nhắc đến. Khoảng cách authority này là nguyên nhân trực tiếp khiến huge-germany.com không thể cạnh tranh ranking trong ngành.</p>
+    </div>
+
+    <!-- Box 3: Content strategy sai + keyword gap -->
+    <div class="conclusion-box conclusion-warn" style="margin-top:8px;border-color:#f59e0b;background:#fffbeb">
+      <div class="title" style="color:#b45309">Content sai chiến lược — bỏ ngỏ 171,870 lượt tìm kiếm/tháng trong ngành:</div>
+      <p><strong>74% traffic</strong> đến từ blog, chỉ có <strong>7 trang sản phẩm</strong> trong top 60 pages (24.9% traffic). Nghiêm trọng hơn, <strong>18.3% traffic</strong> đến từ <strong>blog ngoài ngành</strong> (kem rửa mặt Hada Labo, cây trồng trong nhà, tẩy rửa...) — không có giá trị chuyển đổi thương mại. Toàn bộ <strong>1,406 từ khoá ngành TBVS</strong> đã research đều là keyword gap: <em>"bồn cầu"</em> (33,100/tháng), <em>"vòi sen tắm"</em> (9,900/tháng), <em>"bồn cầu thông minh"</em> (6,600/tháng) — huge-germany.com không ranking ở bất kỳ vị trí nào. Nếu phủ được top 5 nhóm thương mại (<em>bồn cầu - giá, sen tắm, bồn cầu - thông minh, lavabo, vòi lavabo</em>), site có thể tiếp cận <strong>~70,000+ lượt tìm kiếm/tháng</strong> từ người dùng có intent mua hàng. Trong khi đó enic.vn đang có <strong>60.7% traffic từ trang sản phẩm</strong>, inax.com.vn cân bằng blog/SP ở mức 46/44%.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 1: TỔNG QUAN WEBSITE ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">1</div><h2>Tổng quan Website</h2></div>
+
+  <!-- Bảng so sánh 3 domain -->
+  <div class="card overflow-x-auto mb-4">
+    <table class="w-full min-w-[640px]">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th style="text-align:right">Organic Pages</th>
+          <th style="text-align:right">Traffic/tháng</th>
+          <th style="text-align:right">Top 1–3 KWs</th>
+          <th style="text-align:right">Clean ref. domains</th>
+          <th style="text-align:right">% Spam</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>huge-germany.com <span class="badge-danger" style="margin-left:4px">client</span></td>
+          <td style="text-align:right"><span style="color:#dc2626;font-weight:700">65</span></td>
+          <td style="text-align:right"><span style="color:#dc2626;font-weight:700">3,786</span></td>
+          <td style="text-align:right"><span style="color:#dc2626;font-weight:700">0</span></td>
+          <td style="text-align:right"><span style="color:#dc2626;font-weight:700">51</span></td>
+          <td style="text-align:right"><span class="badge-danger">96.1%</span></td>
+        </tr>
+        <tr>
+          <td>enic.vn</td>
+          <td style="text-align:right">621</td>
+          <td style="text-align:right">98,493</td>
+          <td style="text-align:right">367</td>
+          <td style="text-align:right">185</td>
+          <td style="text-align:right"><span class="badge-danger">95.2%</span></td>
+        </tr>
+        <tr>
+          <td>www.inax.com.vn</td>
+          <td style="text-align:right">373</td>
+          <td style="text-align:right">77,681</td>
+          <td style="text-align:right">338</td>
+          <td style="text-align:right">224</td>
+          <td style="text-align:right"><span class="badge-ok">34.3%</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bảng thị trường 100 domain -->
+  <div class="card">
+    <div class="px-5 pt-5 pb-3">
+      <div class="section-title">Tổng quan thị trường — 100 website cạnh tranh ngành Thiết bị vệ sinh (Ahrefs · bộ 1,406 từ khoá)</div>
+      <p class="text-xs text-ink-400 mt-1">Bảng xếp hạng theo số từ khoá <strong>Top 1–3</strong> trong SERP. <span style="background:#eef1ff;padding:2px 6px;border-radius:4px;font-size:11px;font-weight:600">★ enic.vn (#11)</span> và <span style="background:#e6fff5;padding:2px 6px;border-radius:4px;font-size:11px;font-weight:600">★ inax (#24)</span> là 2 đối thủ phân tích chính. <strong style="color:#dc2626">huge-germany.com không xuất hiện</strong> trong top 100 — 0 ranking trong ngành TBVS.</p>
+    </div>
+    <div style="max-height:520px;overflow-y:auto">
+      <table class="w-full" style="font-size:12px">
+        <thead style="position:sticky;top:0;z-index:1;background:#f4f6ff">
+          <tr>
+            <th style="text-align:right;width:36px">#</th>
+            <th style="text-align:left">Domain</th>
+            <th style="text-align:right">Avg Pos</th>
+            <th style="text-align:right;color:#16a34a">Top 1–3</th>
+            <th style="text-align:right">Top 4–5</th>
+            <th style="text-align:right">Top 6–10</th>
+            <th style="text-align:right">11–100</th>
+            <th style="text-align:right">100+</th>
+            <th style="text-align:right">Tổng KW</th>
+            <th style="text-align:right">% SERP</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr><td style="text-align:right;color:var(--ink-400)">1</td><td>shopee.vn</td><td style="text-align:right">20</td><td style="color:#16a34a;font-weight:700;text-align:right">602</td><td style="text-align:right">274</td><td style="text-align:right">456</td><td style="text-align:right">676</td><td style="text-align:right">201</td><td style="text-align:right">2008</td><td style="text-align:right">91%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">2</td><td>quanghuykitchen.com</td><td style="text-align:right">64</td><td style="color:#16a34a;font-weight:700;text-align:right">440</td><td style="text-align:right">75</td><td style="text-align:right">125</td><td style="text-align:right">234</td><td style="text-align:right">1335</td><td style="text-align:right">874</td><td style="text-align:right">40%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">3</td><td>sonha.net.vn</td><td style="text-align:right">65</td><td style="color:#16a34a;font-weight:700;text-align:right">294</td><td style="text-align:right">162</td><td style="text-align:right">237</td><td style="text-align:right">141</td><td style="text-align:right">1375</td><td style="text-align:right">834</td><td style="text-align:right">38%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">4</td><td>tkn.vn</td><td style="text-align:right">66</td><td style="color:#16a34a;font-weight:700;text-align:right">247</td><td style="text-align:right">66</td><td style="text-align:right">93</td><td style="text-align:right">463</td><td style="text-align:right">1340</td><td style="text-align:right">869</td><td style="text-align:right">39%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">5</td><td>hafele-vn.com</td><td style="text-align:right">74</td><td style="color:#16a34a;font-weight:700;text-align:right">197</td><td style="text-align:right">58</td><td style="text-align:right">141</td><td style="text-align:right">244</td><td style="text-align:right">1569</td><td style="text-align:right">640</td><td style="text-align:right">29%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">6</td><td>konox.com.vn</td><td style="text-align:right">73</td><td style="color:#16a34a;font-weight:700;text-align:right">180</td><td style="text-align:right">42</td><td style="text-align:right">59</td><td style="text-align:right">434</td><td style="text-align:right">1494</td><td style="text-align:right">715</td><td style="text-align:right">32%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">7</td><td>bepviet.vn</td><td style="text-align:right">70</td><td style="color:#16a34a;font-weight:700;text-align:right">149</td><td style="text-align:right">110</td><td style="text-align:right">165</td><td style="text-align:right">373</td><td style="text-align:right">1412</td><td style="text-align:right">797</td><td style="text-align:right">36%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">8</td><td>eurogold.vn</td><td style="text-align:right">75</td><td style="color:#16a34a;font-weight:700;text-align:right">149</td><td style="text-align:right">34</td><td style="text-align:right">66</td><td style="text-align:right">416</td><td style="text-align:right">1544</td><td style="text-align:right">665</td><td style="text-align:right">30%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">9</td><td>garis.vn</td><td style="text-align:right">61</td><td style="color:#16a34a;font-weight:700;text-align:right">135</td><td style="text-align:right">123</td><td style="text-align:right">182</td><td style="text-align:right">561</td><td style="text-align:right">1208</td><td style="text-align:right">1001</td><td style="text-align:right">45%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">10</td><td>hafelehome.com.vn</td><td style="text-align:right">86</td><td style="color:#16a34a;font-weight:700;text-align:right">121</td><td style="text-align:right">20</td><td style="text-align:right">74</td><td style="text-align:right">162</td><td style="text-align:right">1832</td><td style="text-align:right">377</td><td style="text-align:right">17%</td></tr>
+        <tr style="background:#eef1ff;font-weight:600"><td style="text-align:right;color:var(--ink-400)">11</td><td>enic.vn <span style="background:#004aef;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">enic ★</span></td><td style="text-align:right">83</td><td style="color:#16a34a;font-weight:700;text-align:right">114</td><td style="text-align:right">66</td><td style="text-align:right">113</td><td style="text-align:right">135</td><td style="text-align:right">1781</td><td style="text-align:right">428</td><td style="text-align:right">19%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">12</td><td>thietbivesinhgiakho.vn</td><td style="text-align:right">74</td><td style="color:#16a34a;font-weight:700;text-align:right">113</td><td style="text-align:right">97</td><td style="text-align:right">195</td><td style="text-align:right">252</td><td style="text-align:right">1552</td><td style="text-align:right">657</td><td style="text-align:right">30%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">13</td><td>facebook.com</td><td style="text-align:right">31</td><td style="color:#b45309;text-align:right">97</td><td style="text-align:right">143</td><td style="text-align:right">376</td><td style="text-align:right">1301</td><td style="text-align:right">292</td><td style="text-align:right">1917</td><td style="text-align:right">87%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">14</td><td>sieuthiinox.com</td><td style="text-align:right">71</td><td style="color:#b45309;text-align:right">94</td><td style="text-align:right">25</td><td style="text-align:right">62</td><td style="text-align:right">687</td><td style="text-align:right">1341</td><td style="text-align:right">868</td><td style="text-align:right">39%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">15</td><td>dandihome.vn</td><td style="text-align:right">93</td><td style="color:#b45309;text-align:right">94</td><td style="text-align:right">14</td><td style="text-align:right">28</td><td style="text-align:right">58</td><td style="text-align:right">2015</td><td style="text-align:right">194</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">16</td><td>viglaceravn.com</td><td style="text-align:right">84</td><td style="color:#b45309;text-align:right">90</td><td style="text-align:right">26</td><td style="text-align:right">26</td><td style="text-align:right">322</td><td style="text-align:right">1745</td><td style="text-align:right">464</td><td style="text-align:right">21%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">17</td><td>dienmayxanh.com</td><td style="text-align:right">78</td><td style="color:#b45309;text-align:right">89</td><td style="text-align:right">43</td><td style="text-align:right">49</td><td style="text-align:right">481</td><td style="text-align:right">1547</td><td style="text-align:right">662</td><td style="text-align:right">30%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">18</td><td>senvoi.vn</td><td style="text-align:right">89</td><td style="color:#b45309;text-align:right">87</td><td style="text-align:right">10</td><td style="text-align:right">57</td><td style="text-align:right">153</td><td style="text-align:right">1902</td><td style="text-align:right">307</td><td style="text-align:right">14%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">19</td><td>tdm.vn</td><td style="text-align:right">75</td><td style="color:#b45309;text-align:right">83</td><td style="text-align:right">71</td><td style="text-align:right">89</td><td style="text-align:right">445</td><td style="text-align:right">1521</td><td style="text-align:right">688</td><td style="text-align:right">31%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">20</td><td>eurohouse.info</td><td style="text-align:right">70</td><td style="color:#b45309;text-align:right">81</td><td style="text-align:right">70</td><td style="text-align:right">113</td><td style="text-align:right">597</td><td style="text-align:right">1348</td><td style="text-align:right">861</td><td style="text-align:right">39%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">21</td><td>thietbivesinhvn.com.vn</td><td style="text-align:right">92</td><td style="color:#b45309;text-align:right">72</td><td style="text-align:right">6</td><td style="text-align:right">14</td><td style="text-align:right">137</td><td style="text-align:right">1980</td><td style="text-align:right">229</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">22</td><td>zento.vn</td><td style="text-align:right">79</td><td style="color:#b45309;text-align:right">65</td><td style="text-align:right">19</td><td style="text-align:right">30</td><td style="text-align:right">475</td><td style="text-align:right">1620</td><td style="text-align:right">589</td><td style="text-align:right">27%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">23</td><td>nobili-nobinox.com.vn</td><td style="text-align:right">84</td><td style="color:#b45309;text-align:right">63</td><td style="text-align:right">72</td><td style="text-align:right">130</td><td style="text-align:right">137</td><td style="text-align:right">1807</td><td style="text-align:right">402</td><td style="text-align:right">18%</td></tr>
+        <tr style="background:#e6fff5;font-weight:600"><td style="text-align:right;color:var(--ink-400)">24</td><td>inax.com.vn <span style="background:#059669;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">inax ★</span></td><td style="text-align:right">82</td><td style="color:#b45309;text-align:right">62</td><td style="text-align:right">109</td><td style="text-align:right">135</td><td style="text-align:right">169</td><td style="text-align:right">1734</td><td style="text-align:right">475</td><td style="text-align:right">22%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">25</td><td>kluger.vn</td><td style="text-align:right">85</td><td style="color:#b45309;text-align:right">62</td><td style="text-align:right">67</td><td style="text-align:right">145</td><td style="text-align:right">96</td><td style="text-align:right">1839</td><td style="text-align:right">370</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">26</td><td>phukientubepeu.vn</td><td style="text-align:right">79</td><td style="color:#b45309;text-align:right">60</td><td style="text-align:right">37</td><td style="text-align:right">73</td><td style="text-align:right">427</td><td style="text-align:right">1612</td><td style="text-align:right">597</td><td style="text-align:right">27%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">27</td><td>hoangduyphathome.com.vn</td><td style="text-align:right">91</td><td style="color:#b45309;text-align:right">58</td><td style="text-align:right">39</td><td style="text-align:right">57</td><td style="text-align:right">94</td><td style="text-align:right">1961</td><td style="text-align:right">248</td><td style="text-align:right">11%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">28</td><td>xuongsanxuatinox.com</td><td style="text-align:right">78</td><td style="color:#b45309;text-align:right">56</td><td style="text-align:right">43</td><td style="text-align:right">140</td><td style="text-align:right">378</td><td style="text-align:right">1592</td><td style="text-align:right">617</td><td style="text-align:right">28%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">29</td><td>flexhouse.vn</td><td style="text-align:right">63</td><td style="color:#b45309;text-align:right">54</td><td style="text-align:right">25</td><td style="text-align:right">69</td><td style="text-align:right">1019</td><td style="text-align:right">1042</td><td style="text-align:right">1167</td><td style="text-align:right">53%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">30</td><td>tiki.vn</td><td style="text-align:right">60</td><td style="color:#b45309;text-align:right">51</td><td style="text-align:right">185</td><td style="text-align:right">194</td><td style="text-align:right">737</td><td style="text-align:right">1042</td><td style="text-align:right">1167</td><td style="text-align:right">53%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">31</td><td>bossvn.vn</td><td style="text-align:right">90</td><td style="text-align:right">42</td><td style="text-align:right">16</td><td style="text-align:right">30</td><td style="text-align:right">197</td><td style="text-align:right">1924</td><td style="text-align:right">285</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">32</td><td>kibath.vn</td><td style="text-align:right">81</td><td style="text-align:right">38</td><td style="text-align:right">19</td><td style="text-align:right">58</td><td style="text-align:right">443</td><td style="text-align:right">1651</td><td style="text-align:right">558</td><td style="text-align:right">25%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">33</td><td>thietbinhavesinh.net</td><td style="text-align:right">80</td><td style="text-align:right">35</td><td style="text-align:right">35</td><td style="text-align:right">102</td><td style="text-align:right">396</td><td style="text-align:right">1641</td><td style="text-align:right">568</td><td style="text-align:right">26%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">34</td><td>duraval.vn</td><td style="text-align:right">78</td><td style="text-align:right">34</td><td style="text-align:right">31</td><td style="text-align:right">98</td><td style="text-align:right">479</td><td style="text-align:right">1567</td><td style="text-align:right">642</td><td style="text-align:right">29%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">35</td><td>khanhvyhome.com</td><td style="text-align:right">87</td><td style="text-align:right">34</td><td style="text-align:right">52</td><td style="text-align:right">87</td><td style="text-align:right">204</td><td style="text-align:right">1832</td><td style="text-align:right">377</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">36</td><td>thegioibepnhapkhau.vn</td><td style="text-align:right">75</td><td style="text-align:right">33</td><td style="text-align:right">11</td><td style="text-align:right">81</td><td style="text-align:right">670</td><td style="text-align:right">1414</td><td style="text-align:right">795</td><td style="text-align:right">36%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">37</td><td>bep247.vn</td><td style="text-align:right">88</td><td style="text-align:right">33</td><td style="text-align:right">34</td><td style="text-align:right">72</td><td style="text-align:right">193</td><td style="text-align:right">1877</td><td style="text-align:right">332</td><td style="text-align:right">15%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">38</td><td>sonhashi.com.vn</td><td style="text-align:right">93</td><td style="text-align:right">32</td><td style="text-align:right">13</td><td style="text-align:right">39</td><td style="text-align:right">119</td><td style="text-align:right">2006</td><td style="text-align:right">203</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">39</td><td>bachhoaxanh.com</td><td style="text-align:right">92</td><td style="text-align:right">31</td><td style="text-align:right">20</td><td style="text-align:right">47</td><td style="text-align:right">124</td><td style="text-align:right">1987</td><td style="text-align:right">222</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">40</td><td>tongkhoducthanh.vn</td><td style="text-align:right">79</td><td style="text-align:right">30</td><td style="text-align:right">28</td><td style="text-align:right">52</td><td style="text-align:right">536</td><td style="text-align:right">1563</td><td style="text-align:right">646</td><td style="text-align:right">29%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">41</td><td>malloca.com</td><td style="text-align:right">85</td><td style="text-align:right">30</td><td style="text-align:right">17</td><td style="text-align:right">23</td><td style="text-align:right">366</td><td style="text-align:right">1773</td><td style="text-align:right">436</td><td style="text-align:right">20%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">42</td><td>hsn.vn</td><td style="text-align:right">87</td><td style="text-align:right">30</td><td style="text-align:right">18</td><td style="text-align:right">20</td><td style="text-align:right">327</td><td style="text-align:right">1814</td><td style="text-align:right">395</td><td style="text-align:right">18%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">43</td><td>hita.com.vn</td><td style="text-align:right">81</td><td style="text-align:right">29</td><td style="text-align:right">17</td><td style="text-align:right">82</td><td style="text-align:right">418</td><td style="text-align:right">1663</td><td style="text-align:right">546</td><td style="text-align:right">25%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">44</td><td>phukienhafele.com.vn</td><td style="text-align:right">88</td><td style="text-align:right">29</td><td style="text-align:right">26</td><td style="text-align:right">65</td><td style="text-align:right">232</td><td style="text-align:right">1857</td><td style="text-align:right">352</td><td style="text-align:right">16%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">45</td><td>gerari.vn</td><td style="text-align:right">75</td><td style="text-align:right">26</td><td style="text-align:right">38</td><td style="text-align:right">117</td><td style="text-align:right">535</td><td style="text-align:right">1493</td><td style="text-align:right">716</td><td style="text-align:right">32%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">46</td><td>thietbivesinhviet.com</td><td style="text-align:right">92</td><td style="text-align:right">26</td><td style="text-align:right">20</td><td style="text-align:right">33</td><td style="text-align:right">153</td><td style="text-align:right">1977</td><td style="text-align:right">232</td><td style="text-align:right">11%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">47</td><td>bepxanh.com</td><td style="text-align:right">77</td><td style="text-align:right">25</td><td style="text-align:right">25</td><td style="text-align:right">44</td><td style="text-align:right">612</td><td style="text-align:right">1503</td><td style="text-align:right">706</td><td style="text-align:right">32%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">48</td><td>phukieneurogold.com.vn</td><td style="text-align:right">89</td><td style="text-align:right">23</td><td style="text-align:right">28</td><td style="text-align:right">72</td><td style="text-align:right">196</td><td style="text-align:right">1890</td><td style="text-align:right">319</td><td style="text-align:right">14%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">49</td><td>sonha.com.vn</td><td style="text-align:right">89</td><td style="text-align:right">23</td><td style="text-align:right">46</td><td style="text-align:right">98</td><td style="text-align:right">136</td><td style="text-align:right">1906</td><td style="text-align:right">303</td><td style="text-align:right">14%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">50</td><td>youtube.com</td><td style="text-align:right">25</td><td style="text-align:right">21</td><td style="text-align:right">93</td><td style="text-align:right">449</td><td style="text-align:right">1476</td><td style="text-align:right">170</td><td style="text-align:right">2039</td><td style="text-align:right">92%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">51</td><td>noithatviva.vn</td><td style="text-align:right">76</td><td style="text-align:right">20</td><td style="text-align:right">24</td><td style="text-align:right">61</td><td style="text-align:right">670</td><td style="text-align:right">1434</td><td style="text-align:right">775</td><td style="text-align:right">35%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">52</td><td>meta.vn</td><td style="text-align:right">88</td><td style="text-align:right">20</td><td style="text-align:right">33</td><td style="text-align:right">85</td><td style="text-align:right">206</td><td style="text-align:right">1865</td><td style="text-align:right">344</td><td style="text-align:right">16%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">53</td><td>bepnamduong.com.vn</td><td style="text-align:right">90</td><td style="text-align:right">19</td><td style="text-align:right">14</td><td style="text-align:right">58</td><td style="text-align:right">191</td><td style="text-align:right">1927</td><td style="text-align:right">282</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">54</td><td>noithatthuanphat.vn</td><td style="text-align:right">88</td><td style="text-align:right">18</td><td style="text-align:right">5</td><td style="text-align:right">19</td><td style="text-align:right">327</td><td style="text-align:right">1840</td><td style="text-align:right">369</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">55</td><td>bepeu.vn</td><td style="text-align:right">91</td><td style="text-align:right">18</td><td style="text-align:right">7</td><td style="text-align:right">28</td><td style="text-align:right">212</td><td style="text-align:right">1944</td><td style="text-align:right">265</td><td style="text-align:right">12%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">56</td><td>phukienbepthanhdat.com</td><td style="text-align:right">88</td><td style="text-align:right">17</td><td style="text-align:right">13</td><td style="text-align:right">41</td><td style="text-align:right">285</td><td style="text-align:right">1853</td><td style="text-align:right">356</td><td style="text-align:right">16%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">57</td><td>xuongphukientubep.com</td><td style="text-align:right">90</td><td style="text-align:right">17</td><td style="text-align:right">10</td><td style="text-align:right">34</td><td style="text-align:right">227</td><td style="text-align:right">1921</td><td style="text-align:right">288</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">58</td><td>gobe.com.vn</td><td style="text-align:right">92</td><td style="text-align:right">14</td><td style="text-align:right">15</td><td style="text-align:right">16</td><td style="text-align:right">211</td><td style="text-align:right">1953</td><td style="text-align:right">256</td><td style="text-align:right">12%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">59</td><td>lanka.com.vn</td><td style="text-align:right">93</td><td style="text-align:right">14</td><td style="text-align:right">7</td><td style="text-align:right">24</td><td style="text-align:right">173</td><td style="text-align:right">1991</td><td style="text-align:right">218</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">60</td><td>thegioivoinuoc.vn</td><td style="text-align:right">89</td><td style="text-align:right">13</td><td style="text-align:right">9</td><td style="text-align:right">14</td><td style="text-align:right">295</td><td style="text-align:right">1878</td><td style="text-align:right">331</td><td style="text-align:right">15%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">61</td><td>vanphuthanh.net</td><td style="text-align:right">91</td><td style="text-align:right">13</td><td style="text-align:right">41</td><td style="text-align:right">45</td><td style="text-align:right">177</td><td style="text-align:right">1933</td><td style="text-align:right">276</td><td style="text-align:right">12%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">62</td><td>inoxvietnam.vn</td><td style="text-align:right">91</td><td style="text-align:right">12</td><td style="text-align:right">7</td><td style="text-align:right">28</td><td style="text-align:right">238</td><td style="text-align:right">1924</td><td style="text-align:right">285</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">63</td><td>tongkhophukientubep.com</td><td style="text-align:right">91</td><td style="text-align:right">10</td><td style="text-align:right">4</td><td style="text-align:right">17</td><td style="text-align:right">268</td><td style="text-align:right">1910</td><td style="text-align:right">299</td><td style="text-align:right">14%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">64</td><td>thietbivesinh.com.vn</td><td style="text-align:right">90</td><td style="text-align:right">10</td><td style="text-align:right">6</td><td style="text-align:right">63</td><td style="text-align:right">219</td><td style="text-align:right">1911</td><td style="text-align:right">298</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">65</td><td>bepvuson.vn</td><td style="text-align:right">90</td><td style="text-align:right">9</td><td style="text-align:right">3</td><td style="text-align:right">20</td><td style="text-align:right">313</td><td style="text-align:right">1864</td><td style="text-align:right">345</td><td style="text-align:right">16%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">66</td><td>phukientubepplus.com</td><td style="text-align:right">93</td><td style="text-align:right">9</td><td style="text-align:right">7</td><td style="text-align:right">20</td><td style="text-align:right">173</td><td style="text-align:right">2000</td><td style="text-align:right">209</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">67</td><td>lazada.vn</td><td style="text-align:right">61</td><td style="text-align:right">8</td><td style="text-align:right">11</td><td style="text-align:right">53</td><td style="text-align:right">1277</td><td style="text-align:right">860</td><td style="text-align:right">1349</td><td style="text-align:right">61%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">68</td><td>thienkimhome.com</td><td style="text-align:right">84</td><td style="text-align:right">8</td><td style="text-align:right">7</td><td style="text-align:right">33</td><td style="text-align:right">455</td><td style="text-align:right">1706</td><td style="text-align:right">503</td><td style="text-align:right">23%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">69</td><td>picenza.com.vn</td><td style="text-align:right">93</td><td style="text-align:right">7</td><td style="text-align:right">16</td><td style="text-align:right">32</td><td style="text-align:right">160</td><td style="text-align:right">1994</td><td style="text-align:right">215</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">70</td><td>grob.com.vn</td><td style="text-align:right">78</td><td style="text-align:right">6</td><td style="text-align:right">55</td><td style="text-align:right">116</td><td style="text-align:right">448</td><td style="text-align:right">1584</td><td style="text-align:right">625</td><td style="text-align:right">28%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">71</td><td>tiktok.com</td><td style="text-align:right">81</td><td style="text-align:right">6</td><td style="text-align:right">14</td><td style="text-align:right">69</td><td style="text-align:right">529</td><td style="text-align:right">1591</td><td style="text-align:right">618</td><td style="text-align:right">28%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">72</td><td>vinakit.vn</td><td style="text-align:right">91</td><td style="text-align:right">6</td><td style="text-align:right">5</td><td style="text-align:right">29</td><td style="text-align:right">253</td><td style="text-align:right">1916</td><td style="text-align:right">293</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">73</td><td>vietcuongthinh.vn</td><td style="text-align:right">93</td><td style="text-align:right">6</td><td style="text-align:right">0</td><td style="text-align:right">17</td><td style="text-align:right">228</td><td style="text-align:right">1958</td><td style="text-align:right">251</td><td style="text-align:right">11%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">74</td><td>fulco.com.vn</td><td style="text-align:right">93</td><td style="text-align:right">6</td><td style="text-align:right">3</td><td style="text-align:right">18</td><td style="text-align:right">195</td><td style="text-align:right">1987</td><td style="text-align:right">222</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">75</td><td>websosanh.vn</td><td style="text-align:right">84</td><td style="text-align:right">4</td><td style="text-align:right">3</td><td style="text-align:right">30</td><td style="text-align:right">567</td><td style="text-align:right">1605</td><td style="text-align:right">604</td><td style="text-align:right">27%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">76</td><td>m90home.com</td><td style="text-align:right">82</td><td style="text-align:right">4</td><td style="text-align:right">6</td><td style="text-align:right">34</td><td style="text-align:right">526</td><td style="text-align:right">1639</td><td style="text-align:right">570</td><td style="text-align:right">26%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">77</td><td>noithatdepgiare.vn</td><td style="text-align:right">94</td><td style="text-align:right">4</td><td style="text-align:right">2</td><td style="text-align:right">7</td><td style="text-align:right">202</td><td style="text-align:right">1994</td><td style="text-align:right">215</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">78</td><td>thietbivesinhsaigon.com</td><td style="text-align:right">95</td><td style="text-align:right">4</td><td style="text-align:right">7</td><td style="text-align:right">14</td><td style="text-align:right">180</td><td style="text-align:right">2004</td><td style="text-align:right">205</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">79</td><td>nicehomestore.vn</td><td style="text-align:right">86</td><td style="text-align:right">3</td><td style="text-align:right">0</td><td style="text-align:right">3</td><td style="text-align:right">489</td><td style="text-align:right">1714</td><td style="text-align:right">495</td><td style="text-align:right">22%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">80</td><td>bluha.vn</td><td style="text-align:right">90</td><td style="text-align:right">3</td><td style="text-align:right">6</td><td style="text-align:right">24</td><td style="text-align:right">303</td><td style="text-align:right">1873</td><td style="text-align:right">336</td><td style="text-align:right">15%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">81</td><td>libera.vn</td><td style="text-align:right">92</td><td style="text-align:right">3</td><td style="text-align:right">1</td><td style="text-align:right">20</td><td style="text-align:right">242</td><td style="text-align:right">1943</td><td style="text-align:right">266</td><td style="text-align:right">12%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">82</td><td>bepnhanphat.com</td><td style="text-align:right">95</td><td style="text-align:right">3</td><td style="text-align:right">4</td><td style="text-align:right">18</td><td style="text-align:right">170</td><td style="text-align:right">2014</td><td style="text-align:right">195</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">83</td><td>noithathpro.com</td><td style="text-align:right">90</td><td style="text-align:right">2</td><td style="text-align:right">3</td><td style="text-align:right">6</td><td style="text-align:right">365</td><td style="text-align:right">1833</td><td style="text-align:right">376</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">84</td><td>saigonbep.vn</td><td style="text-align:right">89</td><td style="text-align:right">2</td><td style="text-align:right">1</td><td style="text-align:right">7</td><td style="text-align:right">359</td><td style="text-align:right">1840</td><td style="text-align:right">369</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">85</td><td>mthome.vn</td><td style="text-align:right">91</td><td style="text-align:right">2</td><td style="text-align:right">3</td><td style="text-align:right">11</td><td style="text-align:right">320</td><td style="text-align:right">1873</td><td style="text-align:right">336</td><td style="text-align:right">15%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">86</td><td>locnghi.com</td><td style="text-align:right">91</td><td style="text-align:right">2</td><td style="text-align:right">2</td><td style="text-align:right">8</td><td style="text-align:right">288</td><td style="text-align:right">1909</td><td style="text-align:right">300</td><td style="text-align:right">14%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">87</td><td>beproyal.com</td><td style="text-align:right">89</td><td style="text-align:right">1</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right">645</td><td style="text-align:right">1560</td><td style="text-align:right">649</td><td style="text-align:right">29%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">88</td><td>phukientubepxinh.info</td><td style="text-align:right">85</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right">8</td><td style="text-align:right">542</td><td style="text-align:right">1656</td><td style="text-align:right">553</td><td style="text-align:right">25%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">89</td><td>shome.vn</td><td style="text-align:right">93</td><td style="text-align:right">1</td><td style="text-align:right">1</td><td style="text-align:right">5</td><td style="text-align:right">284</td><td style="text-align:right">1918</td><td style="text-align:right">291</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">90</td><td>tubepthienthinh.com</td><td style="text-align:right">92</td><td style="text-align:right">1</td><td style="text-align:right">1</td><td style="text-align:right">8</td><td style="text-align:right">268</td><td style="text-align:right">1931</td><td style="text-align:right">278</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">91</td><td>niranvietnam.com</td><td style="text-align:right">94</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right">10</td><td style="text-align:right">184</td><td style="text-align:right">2012</td><td style="text-align:right">197</td><td style="text-align:right">9%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">92</td><td>inoxen.vn</td><td style="text-align:right">89</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">6</td><td style="text-align:right">375</td><td style="text-align:right">1828</td><td style="text-align:right">381</td><td style="text-align:right">17%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">93</td><td>bepnova.vn</td><td style="text-align:right">93</td><td style="text-align:right">0</td><td style="text-align:right">1</td><td style="text-align:right">2</td><td style="text-align:right">320</td><td style="text-align:right">1886</td><td style="text-align:right">323</td><td style="text-align:right">15%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">94</td><td>thietbibepcongnghieptl.com.vn</td><td style="text-align:right">94</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">1</td><td style="text-align:right">286</td><td style="text-align:right">1922</td><td style="text-align:right">287</td><td style="text-align:right">13%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">95</td><td>mcqueenhome.vn</td><td style="text-align:right">96</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">2</td><td style="text-align:right">269</td><td style="text-align:right">1938</td><td style="text-align:right">271</td><td style="text-align:right">12%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">96</td><td>muathongminh.vn</td><td style="text-align:right">97</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">240</td><td style="text-align:right">1969</td><td style="text-align:right">240</td><td style="text-align:right">11%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">97</td><td>thuanphathome.vn</td><td style="text-align:right">94</td><td style="text-align:right">0</td><td style="text-align:right">8</td><td style="text-align:right">20</td><td style="text-align:right">202</td><td style="text-align:right">1979</td><td style="text-align:right">230</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">98</td><td>thietbivesinhtata.com.vn</td><td style="text-align:right">94</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">6</td><td style="text-align:right">220</td><td style="text-align:right">1983</td><td style="text-align:right">226</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">99</td><td>samvnlock.vn</td><td style="text-align:right">93</td><td style="text-align:right">0</td><td style="text-align:right">2</td><td style="text-align:right">27</td><td style="text-align:right">197</td><td style="text-align:right">1983</td><td style="text-align:right">226</td><td style="text-align:right">10%</td></tr>
+        <tr><td style="text-align:right;color:var(--ink-400)">100</td><td>thietbivesinhnova.com</td><td style="text-align:right">96</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">0</td><td style="text-align:right">216</td><td style="text-align:right">1993</td><td style="text-align:right">216</td><td style="text-align:right">10%</td></tr>
+          <tr style="background:#fff0f0;font-style:italic">
+            <td style="text-align:right;color:var(--ink-400)">—</td>
+            <td><strong style="color:#dc2626">huge-germany.com</strong> <span style="background:#dc2626;color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700;margin-left:4px">CLIENT</span></td>
+            <td style="text-align:right;color:#dc2626">—</td>
+            <td style="text-align:right;color:#dc2626;font-weight:700">0</td>
+            <td style="text-align:right;color:#dc2626">0</td>
+            <td style="text-align:right;color:#dc2626">0</td>
+            <td style="text-align:right;color:#dc2626">0</td>
+            <td style="text-align:right;color:#dc2626">~65</td>
+            <td style="text-align:right;color:#dc2626">~65</td>
+            <td style="text-align:right;color:#dc2626">&lt;3%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="px-5 py-3">
+      <p class="text-xs text-ink-400">* Dòng cuối (huge-germany.com) được bổ sung thủ công — site không xuất hiện trong dữ liệu Ahrefs vì chưa ranking từ khoá nào trong top 100 SERP ngành TBVS. Avg Position: — = không có dữ liệu. Nguồn: Ahrefs Top Overview, Tháng 6/2026.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 2: TRAFFIC 12 THÁNG ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">2</div><h2>Traffic tự nhiên (SEO) — Xu hướng 12 tháng</h2></div>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Lượt truy cập tự nhiên (SEO) / tháng — cùng trục Y (Ahrefs)</div>
+      <canvas id="trafficChart" height="200"></canvas>
+      <p class="text-xs mt-2" style="color:var(--ink-400)">* huge-germany.com dao động 2–10K lượt/tháng — gần như phẳng ở đáy biểu đồ so với enic.vn (62–103K) và inax.com.vn (71–90K).</p>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Nhận xét phân tích</div>
+        <p><strong>huge-germany.com</strong> đạt đỉnh 9,942 lượt (10/2025 — có thể do campaign theo mùa), rồi rớt liên tục xuống 2,606 (4/2026), tương đương −74% chỉ trong 6 tháng. YoY −45.2%.</p>
+        <p><strong>enic.vn</strong> tăng trưởng ổn định +19% YoY, đỉnh 103,471 (5/2026), chứng minh mô hình nội dung chuẩn SEO cho ngành TBVS hoạt động bền vững.</p>
+        <p><strong>inax.com.vn</strong> duy trì ổn định 70–90K/tháng dù cắt giảm organic pages (718→373). YoY −8.5% nhưng core ranking vẫn giữ vững nhờ trang sản phẩm chất lượng.</p>
+        <p>Huge cần ưu tiên trang sản phẩm/danh mục cho nhóm từ khoá thương mại để kéo traffic bền vững, thay vì phụ thuộc campaign ngắn hạn.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Traffic data table -->
+  <div class="card overflow-x-auto mt-4">
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th style="text-align:right">7/25</th><th style="text-align:right">8/25</th><th style="text-align:right">9/25</th>
+          <th style="text-align:right">10/25</th><th style="text-align:right">11/25</th><th style="text-align:right">12/25</th>
+          <th style="text-align:right">1/26</th><th style="text-align:right">2/26</th><th style="text-align:right">3/26</th>
+          <th style="text-align:right">4/26</th><th style="text-align:right">5/26</th><th style="text-align:right">6/26</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>huge-germany.com</td>
+          <td style="text-align:right">6,914</td>
+          <td style="text-align:right">4,797</td>
+          <td style="text-align:right">4,590</td>
+          <td style="text-align:right"><strong>9,942</strong></td>
+          <td style="text-align:right">8,718</td>
+          <td style="text-align:right">5,754</td>
+          <td style="text-align:right">5,192</td>
+          <td style="text-align:right">4,448</td>
+          <td style="text-align:right">3,144</td>
+          <td style="text-align:right"><span style="color:#dc2626;font-weight:700">2,606</span></td>
+          <td style="text-align:right">3,202</td>
+          <td style="text-align:right">3,786</td>
+        </tr>
+        <tr>
+          <td>enic.vn</td>
+          <td style="text-align:right">82,797</td>
+          <td style="text-align:right">74,983</td>
+          <td style="text-align:right">62,341</td>
+          <td style="text-align:right">76,192</td>
+          <td style="text-align:right">88,340</td>
+          <td style="text-align:right">95,008</td>
+          <td style="text-align:right">92,410</td>
+          <td style="text-align:right">86,287</td>
+          <td style="text-align:right">83,507</td>
+          <td style="text-align:right">77,531</td>
+          <td style="text-align:right"><strong>103,471</strong></td>
+          <td style="text-align:right">98,493</td>
+        </tr>
+        <tr>
+          <td>inax.com.vn</td>
+          <td style="text-align:right">84,879</td>
+          <td style="text-align:right">88,178</td>
+          <td style="text-align:right">81,641</td>
+          <td style="text-align:right">79,198</td>
+          <td style="text-align:right">78,308</td>
+          <td style="text-align:right">82,322</td>
+          <td style="text-align:right"><strong>89,584</strong></td>
+          <td style="text-align:right">87,448</td>
+          <td style="text-align:right">88,073</td>
+          <td style="text-align:right">70,892</td>
+          <td style="text-align:right">83,485</td>
+          <td style="text-align:right">77,681</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECTION 3: KEYWORD RANKING ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">3</div><h2>Phân bổ Từ khoá theo Vị trí</h2></div>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Số từ khoá trong SERP — bộ 1,600 từ khoá ngành TBVS (Ahrefs)</div>
+      <canvas id="rankingChart" height="200"></canvas>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Phân tích khoảng cách từ khoá</div>
+        <p><strong>huge-germany.com hoàn toàn vắng mặt</strong> trong SERP của bộ 1,406 từ khoá ngành TBVS được theo dõi — site không xuất hiện ở bất kỳ vị trí nào, kể cả top 100.</p>
+        <p><strong>enic.vn dẫn đầu</strong> với 367 từ khoá top 1–3 và tổng 1,123 từ khoá trong SERP (70% coverage). Mạnh nhất ở nhóm sản phẩm bồn rửa, bồn cầu và phụ kiện.</p>
+        <p><strong>inax.com.vn</strong> có 338 từ khoá top 1–3 và tổng 1,313 từ khoá trong SERP (82% coverage) — coverage rộng nhất, đặc biệt mạnh ở top 6–10 (361 KW).</p>
+        <p>Để đạt top 20 cho các từ khoá core như "bồn cầu" (33,100/tháng), huge-germany.com cần tối thiểu <strong>6–12 tháng</strong> xây dựng trang đích + backlinks chất lượng.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ranking table -->
+  <div class="card overflow-x-auto">
+    <table class="w-full min-w-[700px]">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Top 1–3</th>
+          <th>Top 4–5</th>
+          <th>Top 6–10</th>
+          <th>Top 11–100</th>
+          <th>Ngoài Top 100</th>
+          <th>Tổng trong SERP</th>
+          <th>% Coverage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row">
+          <td>huge-germany.com <span class="badge-danger" style="margin-left:4px;font-size:9px">CLIENT</span></td>
+          <td><span style="color:#dc2626;font-weight:700">0</span></td>
+          <td>0</td><td>0</td><td>0</td><td>0</td>
+          <td><span style="color:#dc2626;font-weight:700">0</span></td>
+          <td><span class="badge-danger">0%</span></td>
+        </tr>
+        <tr>
+          <td>enic.vn</td>
+          <td><strong>367</strong></td>
+          <td>118</td><td>280</td><td>285</td><td>73</td>
+          <td>1,123</td>
+          <td><span class="badge-ok">70%</span></td>
+        </tr>
+        <tr>
+          <td>inax.com.vn</td>
+          <td><strong>338</strong></td>
+          <td>96</td><td>361</td><td>430</td><td>88</td>
+          <td>1,313</td>
+          <td><span class="badge-ok">82%</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- huge-germany.com top organic pages -->
+  <div class="card p-5 mt-4">
+    <div class="section-title">Top trang của huge-germany.com đang có traffic tự nhiên (SEO) (Ahrefs, 6/2026)</div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[640px]">
+        <thead>
+          <tr>
+            <th>URL</th><th>Loại trang</th><th>Traffic</th><th>Từ khoá chính</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-xs" style="color:var(--ink-500)">/cach-thong-bon-cau-bi-tac-nang/</td>
+            <td><span class="badge-warn">Blog</span></td>
+            <td><strong>1,268</strong></td>
+            <td>thông bồn cầu bị tắc</td>
+          </tr>
+          <tr>
+            <td class="text-xs" style="color:var(--ink-500)">/bot-thong-cong-sieu-manh/</td>
+            <td><span class="badge-ok">Sản phẩm</span></td>
+            <td>825</td>
+            <td>bột thông cống siêu mạnh</td>
+          </tr>
+          <tr>
+            <td class="text-xs" style="color:var(--ink-500)">/sua-rua-mat-hada-labo/</td>
+            <td><span class="badge-danger">Blog – ngoài ngành</span></td>
+            <td>215</td>
+            <td>sữa rửa mặt hada labo</td>
+          </tr>
+          <tr>
+            <td class="text-xs" style="color:var(--ink-500)">/top-cong-dung-cua-nuoc-tay-bon-cau-vim/</td>
+            <td><span class="badge-warn">Blog</span></td>
+            <td>151</td>
+            <td>nước tẩy bồn cầu vim</td>
+          </tr>
+          <tr>
+            <td class="text-xs" style="color:var(--ink-500)">/cay-trong-trong-nha-khong-can-anh-sang/</td>
+            <td><span class="badge-danger">Blog – ngoài ngành</span></td>
+            <td>143</td>
+            <td>cây trồng không cần ánh sáng</td>
+          </tr>
+          <tr class="highlight-row">
+            <td class="text-xs" style="color:var(--ink-500)" colspan="2"><em>Trang sản phẩm / danh mục</em></td>
+            <td><span style="color:#dc2626;font-weight:700">0</span></td>
+            <td>— Không có trang sản phẩm ngành TBVS nào trong top hữu cơ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 4: TRAFFIC THEO LOẠI TRANG ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">4</div><h2>Traffic theo Loại Trang</h2></div>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Phân bổ trang đang có traffic SEO theo loại URL (%) (Ahrefs, 6/2026)</div>
+      <canvas id="urlTypeChart" height="200"></canvas>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Phân tích cấu trúc nội dung</div>
+        <p><strong>huge-germany.com — 74% Blog, chỉ 7 trang SP</strong> — Blog chiếm đa số nhưng phần lớn là nội dung ngoài ngành (sữa rửa mặt, cây trồng...). Không có trang danh mục sản phẩm TBVS nào trong top hữu cơ — đây là lỗ hổng nghiêm trọng nhất về cấu trúc.</p>
+        <p><strong>enic.vn — 60.7% Sản phẩm</strong> — Strategy đúng cho e-commerce TBVS: trang danh mục + sản phẩm chiếm đa số traffic. Blog 28.4% hỗ trợ awareness và long-tail keywords.</p>
+        <p><strong>inax.com.vn — 44.5% SP + 46.8% Blog</strong> — Cân bằng tốt: blog tư vấn lắp đặt &amp; so sánh kết hợp trang thương mại. Phù hợp brand B2C premium đa phân khúc.</p>
+        <p>Ưu tiên ngay: tạo trang danh mục <em>bồn cầu, chậu rửa, vòi nước, phụ kiện vệ sinh</em> với nội dung SEO đầy đủ để chuyển dần traffic từ blog sang trang thương mại.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 5: BACKLINK ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">5</div><h2>Phân tích Backlink</h2></div>
+
+  <!-- DR distribution chart + analysis -->
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Referring Domains — Số lượng &amp; Chất lượng theo nhóm DR (chỉ clean links)</div>
+      <canvas id="drChart" height="220"></canvas>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Phân tích chất lượng backlink theo DR</div>
+        <p><strong>huge-germany.com — 51 clean domains, Avg DR 7.7:</strong> Gần như không có domain quyền lực cao (1 domain DR 71+). Chủ yếu là profile links và forum threads thấp chất lượng. Không có báo chí hay site ngành thực sự link vào.</p>
+        <p><strong>enic.vn — 185 clean domains, Avg DR 31.7:</strong> Có 25 domains DR 71+ (youtube DR 99, thanhnien DR 86, tinhte DR 79, plo.vn DR 79) — editorial coverage thực sự từ báo chí VN. Đây là lý do traffic enic duy trì ổn định dù bị cạnh tranh.</p>
+        <p><strong>inax.com.vn — 224 clean domains, Avg DR 16.0:</strong> Có 14 domains DR 71+ (vnexpress DR 90, tuoitre DR 86, dantri DR 85) — được 3 báo lớn nhất VN đề cập. Hưởng brand authority từ inax.com (parent company, DR 49, 9,603 links).</p>
+        <p>Ưu tiên ngay: disavow <em>beptungdang.vn</em> (4,601 spam links) qua Google Search Console, đồng thời xây dựng 30–50 clean backlinks từ báo chí ngành và site TBVS uy tín.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DR distribution table -->
+  <div class="card p-5 mb-4">
+    <div class="section-title">Bảng phân tích Referring Domains theo nhóm DR (clean unique domains)</div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[640px]">
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th style="text-align:center">DR 0–30 <span class="font-normal normal-case text-ink-400">(Low)</span></th>
+            <th style="text-align:center">DR 31–70 <span class="font-normal normal-case text-ink-400">(Mid)</span></th>
+            <th style="text-align:center">DR 71–100 <span class="font-normal normal-case text-ink-400">(High)</span></th>
+            <th style="text-align:center">Tổng clean</th>
+            <th style="text-align:center">Avg DR</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>huge-germany.com <span class="badge-danger ml-1">client</span></td>
+            <td style="text-align:center">
+              <span style="color:#dc2626;font-weight:700">43</span>
+              <div class="text-xs text-ink-400">(84.3%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:84%;background:#dc2626"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="color:#b45309;font-weight:700">7</span>
+              <div class="text-xs text-ink-400">(13.7%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:14%;background:#f59e0b"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="color:#16a34a;font-weight:700">1</span>
+              <div class="text-xs text-ink-400">(2.0%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:2%;background:#16a34a"></div></div>
+            </td>
+            <td style="text-align:center"><strong>51</strong></td>
+            <td style="text-align:center"><strong>7.7</strong> <span class="badge-danger ml-1">Rất thấp</span></td>
+          </tr>
+          <tr>
+            <td>enic.vn</td>
+            <td style="text-align:center">
+              <span style="font-weight:600">100</span>
+              <div class="text-xs text-ink-400">(54.1%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:54%;background:#dc2626"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="font-weight:600">60</span>
+              <div class="text-xs text-ink-400">(32.4%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:32%;background:#f59e0b"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="color:#16a34a;font-weight:700">25</span>
+              <div class="text-xs text-ink-400">(13.5%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:14%;background:#16a34a"></div></div>
+            </td>
+            <td style="text-align:center"><strong>185</strong></td>
+            <td style="text-align:center">31.7</td>
+          </tr>
+          <tr>
+            <td>inax.com.vn</td>
+            <td style="text-align:center">
+              <span style="font-weight:600">190</span>
+              <div class="text-xs text-ink-400">(84.8%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:85%;background:#dc2626"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="font-weight:600">20</span>
+              <div class="text-xs text-ink-400">(8.9%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:9%;background:#f59e0b"></div></div>
+            </td>
+            <td style="text-align:center">
+              <span style="color:#16a34a;font-weight:700">14</span>
+              <div class="text-xs text-ink-400">(6.3%)</div>
+              <div class="progress-bar mt-1" style="width:80px;display:inline-block"><div class="progress-fill" style="width:6%;background:#16a34a"></div></div>
+            </td>
+            <td style="text-align:center"><strong>224</strong></td>
+            <td style="text-align:center">16.0</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Spam rate chart + analysis -->
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Tỷ lệ spam trong backlink profile (% tổng backlinks)</div>
+      <canvas id="spamChart" height="160"></canvas>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Cảnh báo spam backlinks</div>
+        <p><span class="badge-danger mr-1">CRITICAL</span> <strong>huge-germany.com 96.1% spam</strong> — domain <em>beptungdang.vn</em> (DR 6) đơn lẻ chiếm 4,601/6,626 tổng backlinks (69.5%). Đây là dấu hiệu rõ ràng của link spam hoặc negative SEO, có thể dẫn đến Google manual penalty.</p>
+        <p><strong>enic.vn 95.2% spam</strong> — tỷ lệ tương tự nhưng có 185 clean domains đa dạng với avg DR 31.7 từ báo chí lớn, bù đắp được chất lượng. Traffic vẫn tăng trưởng tốt.</p>
+        <p><strong>inax.com.vn 34.3% spam</strong> — khác biệt hoàn toàn. 65.7% links là clean, đến từ inax.com parent (DR 49), vnexpress (DR 90), báo chí lớn. Profile backlink lành mạnh nhất trong 3 domain.</p>
+        <p><strong>Hành động khẩn:</strong> Tạo file disavow và submit Google Search Console. Disavow toàn bộ domain <em>beptungdang.vn</em> ngay lập tức.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top referring domains table — huge-germany.com -->
+  <div class="card p-5">
+    <div class="section-title">Top referring domains của huge-germany.com (clean links, sắp xếp theo DR)</div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[600px]">
+        <thead>
+          <tr>
+            <th>Referring Domain</th>
+            <th style="text-align:center">DR</th>
+            <th style="text-align:center">Tổng links</th>
+            <th>Ghi chú</th>
+            <th style="text-align:center">Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>sketchfab.com</td>
+            <td style="text-align:center"><strong style="color:#16a34a">90</strong></td>
+            <td style="text-align:center">1</td>
+            <td>3D model platform</td>
+            <td style="text-align:center"><span class="badge-ok">Clean</span></td>
+          </tr>
+          <tr>
+            <td>voz.vn</td>
+            <td style="text-align:center"><strong style="color:#16a34a">60</strong></td>
+            <td style="text-align:center">2</td>
+            <td>Forum VN uy tín</td>
+            <td style="text-align:center"><span class="badge-ok">Contextual</span></td>
+          </tr>
+          <tr>
+            <td>bhimchat.com</td>
+            <td style="text-align:center"><strong style="color:#b45309">43</strong></td>
+            <td style="text-align:center">11</td>
+            <td>Social platform</td>
+            <td style="text-align:center"><span class="badge-warn">Forum profile</span></td>
+          </tr>
+          <tr>
+            <td>vuathietbi.com</td>
+            <td style="text-align:center"><strong style="color:#b45309">38</strong></td>
+            <td style="text-align:center">2</td>
+            <td>Ngành TBVS — liên quan</td>
+            <td style="text-align:center"><span class="badge-ok">Contextual</span></td>
+          </tr>
+          <tr>
+            <td>hunglan.vn</td>
+            <td style="text-align:center"><strong style="color:#b45309">32</strong></td>
+            <td style="text-align:center">8</td>
+            <td></td>
+            <td style="text-align:center"><span class="badge-warn">Forum profile</span></td>
+          </tr>
+          <tr>
+            <td>hugevietnam.vn</td>
+            <td style="text-align:center">16</td>
+            <td style="text-align:center">45</td>
+            <td>Brand sibling (cùng hệ thống)</td>
+            <td style="text-align:center"><span class="badge-ok">Brand related</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="text-xs mt-3" style="color:#8090c8;font-size:11px">* Chỉ hiển thị top referring domains sau khi lọc spam. Tổng: 51 clean unique domains / 871 tổng domains (5.9%). Nguồn spam chính: <strong>beptungdang.vn</strong> — 4,601 links (69.5% tổng backlinks).</p>
+  </div>
+</div>
+
+<!-- ── SECTION 6: SEO AUDIT ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">6</div><h2>SEO Technical Audit — huge-germany.com</h2></div>
+  <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+    <div class="md:col-span-3 card p-5">
+      <div class="section-title">Phân bổ Top Issues theo nhóm (13 lỗi · 12 cảnh báo ưu tiên cao nhất)</div>
+      <canvas id="auditChart" height="200"></canvas>
+      <p style="font-size:11px;color:#8090c8;margin-top:6px">* Biểu đồ chỉ hiển thị <strong>13 lỗi + 12 cảnh báo</strong> ưu tiên cao nhất. Tổng audit đầy đủ: <strong style="color:#dc2626">38 lỗi</strong> + <strong style="color:#d97706">14 cảnh báo</strong> + 52 đạt + 22 thủ công.</p>
+      <!-- Score cards -->
+      <div class="grid grid-cols-4 gap-2 mt-4">
+        <div class="text-center p-3 rounded-lg" style="background:#f0fdf4">
+          <div class="text-xl font-bold" style="color:#16a34a">52</div>
+          <div class="text-xs text-ink-500 mt-1">Đạt ✓</div>
+        </div>
+        <div class="text-center p-3 rounded-lg" style="background:#fef2f2">
+          <div class="text-xl font-bold" style="color:#dc2626">38</div>
+          <div class="text-xs text-ink-500 mt-1">Lỗi ✗</div>
+        </div>
+        <div class="text-center p-3 rounded-lg" style="background:#fffbeb">
+          <div class="text-xl font-bold" style="color:#b45309">14</div>
+          <div class="text-xs text-ink-500 mt-1">Cảnh báo</div>
+        </div>
+        <div class="text-center p-3 rounded-lg" style="background:#f8fafc">
+          <div class="text-xl font-bold" style="color:#64748b">22</div>
+          <div class="text-xs text-ink-500 mt-1">Thủ công</div>
+        </div>
+      </div>
+    </div>
+    <div class="md:col-span-2">
+      <div class="analysis-box h-full">
+        <div class="label">Nhóm lỗi ưu tiên xử lý</div>
+        <p><strong>Metadata &amp; On-page (5 lỗi — nghiêm trọng nhất):</strong> Multiple H1 trên 99.9% trang (Google không biết tiêu đề chính), thiếu alt text 53.24% ảnh, meta description không chuẩn 73% trang (22% thiếu, 51% &gt;155 ký tự). Ảnh hưởng trực tiếp đến CTR và khả năng Google hiểu nội dung.</p>
+        <p><strong>Website Structure (3 lỗi):</strong> 0/1046 trang có BreadcrumbList schema — Google không hiển thị breadcrumb trong SERP. Product schema price=0 khiến rich results bị từ chối. 139 redirects 3xx hao tổn crawl budget.</p>
+        <p><strong>Links (2 lỗi):</strong> 42 broken links 4xx cần redirect hoặc xóa. Internal linking rời rạc — trang sản phẩm không nhận link từ blog.</p>
+        <p><strong>Page Speed &amp; Bảo mật:</strong> Homepage 2448ms — vượt ngưỡng LCP. 96.39% URLs thiếu HSTS/CSP/X-Content-Type-Options — rủi ro bảo mật và mất trust score.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Audit issues table -->
+  <div class="card p-5 mt-4">
+    <div class="section-title">Top 10 issues ưu tiên xử lý</div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[600px]">
+        <thead><tr><th>#</th><th>Nhóm</th><th>Mức độ</th><th>Hành động đề xuất</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Metadata &amp; On-page</td><td><span class="badge-danger">Critical</span></td><td>Chuẩn hóa cấu trúc H1 — 99.9% trang đang có nhiều H1, mỗi trang phải có đúng 1 H1 duy nhất</td></tr>
+          <tr><td>2</td><td>Metadata &amp; On-page</td><td><span class="badge-danger">Critical</span></td><td>Bổ sung alt text cho 53.24% ảnh đang thiếu — ưu tiên ảnh sản phẩm &amp; ảnh hero</td></tr>
+          <tr><td>3</td><td>Metadata &amp; On-page</td><td><span class="badge-danger">Critical</span></td><td>Viết lại meta description: 22% trang thiếu, 51% trang &gt;155 ký tự — chuẩn hóa 120–155 chars</td></tr>
+          <tr><td>4</td><td>Links</td><td><span class="badge-danger">High</span></td><td>Xử lý 42 broken links (4xx) — thiết lập 301 redirect hoặc cập nhật URL đích</td></tr>
+          <tr><td>5</td><td>Website Structure</td><td><span class="badge-danger">High</span></td><td>Thêm BreadcrumbList schema: 0/1046 trang đang có — implement toàn bộ category &amp; product pages</td></tr>
+          <tr><td>6</td><td>Website Structure</td><td><span class="badge-danger">High</span></td><td>Sửa Product schema: price=0 không hợp lệ — Google từ chối hiển thị rich result cho trang sản phẩm</td></tr>
+          <tr><td>7</td><td>Bảo mật</td><td><span class="badge-danger">High</span></td><td>Kích hoạt HSTS, CSP, X-Content-Type-Options — 96.39% URLs đang thiếu security headers</td></tr>
+          <tr><td>8</td><td>Page Speed</td><td><span class="badge-warn">High</span></td><td>Tối ưu homepage load time 2448ms — nén ảnh WebP, lazy load, giảm render-blocking JS</td></tr>
+          <tr><td>9</td><td>Website Structure</td><td><span class="badge-warn">Medium</span></td><td>Giảm chuỗi redirect 3xx (139 redirects) — rút gọn về 1 bước, loại bỏ redirect chains</td></tr>
+          <tr><td>10</td><td>Đo lường</td><td><span class="badge-warn">Medium</span></td><td>Kiểm tra cài đặt GA4 + GSC, theo dõi organic conversion và Core Web Vitals thực tế</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 7: CONTENT GAP ── -->
+<div class="max-w-5xl mx-auto mb-6">
+  <div class="section-heading"><div class="num">7</div><h2>Content Gap — Từ khoá thương mại đang bỏ lỡ</h2></div>
+
+  <!-- Summary bar -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+    <div class="card p-4 text-center">
+      <div class="metric-val" style="color:#dc2626;font-size:2rem">1,406</div>
+      <div class="metric-label">Từ khoá TBVS ngành</div>
+      <div class="text-xs text-ink-400 mt-1">huge-germany.com: 0 ranking</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="metric-val" style="color:#d97706;font-size:2rem">996</div>
+      <div class="metric-label">High-intent (comm + trans)</div>
+      <div class="text-xs text-ink-400 mt-1">171,870 vol/tháng tổng cộng</div>
+    </div>
+    <div class="card p-4 text-center">
+      <div class="metric-val" style="color:#004aef;font-size:2rem">~100K</div>
+      <div class="metric-label">Vol/tháng — Top 8 nhóm</div>
+      <div class="text-xs text-ink-400 mt-1">Ưu tiên xử lý ngay</div>
+    </div>
+  </div>
+
+  <!-- Gap table -->
+  <div class="card p-5">
+    <div class="section-title mb-3">Nhóm từ khoá thương mại cao — huge-germany.com hiện không ranking</div>
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-[680px]">
+        <thead>
+          <tr>
+            <th>Nhóm từ khoá</th>
+            <th>Top keyword</th>
+            <th style="text-align:right">Vol/tháng</th>
+            <th>Intent</th>
+            <th>enic.vn</th>
+            <th>inax.com.vn</th>
+            <th>huge-germany.com</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>bồn cầu — giá &amp; so sánh</strong></td>
+            <td style="color:#64748b;font-size:12px">bồn cầu (33,100)</td>
+            <td style="text-align:right"><strong>46,130</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>bồn cầu — phụ kiện</strong></td>
+            <td style="color:#64748b;font-size:12px">vòi xịt vệ sinh (3,600)</td>
+            <td style="text-align:right"><strong>13,060</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>sen tắm — mẫu đẹp</strong></td>
+            <td style="color:#64748b;font-size:12px">vòi sen tắm (9,900)</td>
+            <td style="text-align:right"><strong>10,320</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-warn">Ít trang</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>bồn cầu — thông minh</strong></td>
+            <td style="color:#64748b;font-size:12px">bồn cầu thông minh (6,600)</td>
+            <td style="text-align:right"><strong>9,260</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>vòi lavabo — mẫu đẹp</strong></td>
+            <td style="color:#64748b;font-size:12px">vòi lavabo (1,900)</td>
+            <td style="text-align:right"><strong>8,080</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>bồn cầu — mẫu đẹp</strong></td>
+            <td style="color:#64748b;font-size:12px">bồn vệ sinh (2,400)</td>
+            <td style="text-align:right"><strong>8,040</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>bồn cầu — 1 khối</strong></td>
+            <td style="color:#64748b;font-size:12px">bồn cầu 1 khối (1,900)</td>
+            <td style="text-align:right"><strong>7,660</strong></td>
+            <td>Commercial</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr>
+            <td><strong>bồn cầu — giá rẻ</strong></td>
+            <td style="color:#64748b;font-size:12px">bồn cầu giá rẻ dưới 2tr (1,300)</td>
+            <td style="text-align:right"><strong>5,020</strong></td>
+            <td>Transactional</td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-ok">Đang ranking</span></td>
+            <td><span class="badge-danger">Không có trang</span></td>
+          </tr>
+          <tr class="highlight-row">
+            <td colspan="2"><strong>Tổng top 8 nhóm ưu tiên</strong></td>
+            <td style="text-align:right"><strong>~107,570</strong></td>
+            <td>—</td>
+            <td>—</td>
+            <td>—</td>
+            <td><span class="badge-danger">0 traffic</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:#8090c8;margin-top:8px">* Toàn bộ 1,406 từ khoá TBVS trong pool đều là keyword gap — huge-germany.com không xuất hiện trong top 100 ngành. Trạng thái "Đang ranking" của đối thủ dựa trên Semrush Overview (enic: 1,123 KW top 100 · inax: 1,313 KW top 100).</p>
+  </div>
+
+  <!-- Analysis box -->
+  <div class="analysis-box mt-4">
+    <div class="label">Ưu tiên khai thác</div>
+    <p><strong>Bồn cầu là nhóm ưu tiên tuyệt đối:</strong> 419 keywords, 105,120 vol/tháng — chiếm 61% toàn bộ pool thương mại. Chỉ riêng keyword "bồn cầu" đã có 33,100 tìm kiếm/tháng. Cả enic và inax đều có landing page category + trang sản phẩm được tối ưu — huge-germany.com hoàn toàn vắng mặt.</p>
+    <p><strong>"Bồn cầu - giá" là nhóm volume lớn nhất (46,130 vol):</strong> Người dùng tìm kiếm so sánh giá — cần content dạng <em>category page</em> có bảng giá, lọc theo phân khúc (dưới 3 triệu / 3–7 triệu / cao cấp). Đây là conversion funnel cao nhất.</p>
+    <p><strong>Sen tắm bị bỏ ngỏ (10,320 vol):</strong> "Vòi sen tắm" đứng đầu với 9,900 searches — huge-germany.com có sản phẩm nhưng gần như 0 organic traffic từ nhóm này do thiếu trang category và blog hướng dẫn chọn sen tắm.</p>
+    <p><strong>Transactional "giá rẻ" (5,020 vol):</strong> Đây là nhóm mua hàng cụ thể — landing page riêng với bộ lọc giá, hình ảnh sản phẩm rõ, CTA mua ngay sẽ có conversion rate cao nhất.</p>
+  </div>
+</div>
+
+<!-- ── SECTION 8: AI CITATIONS ── -->
+<div class="max-w-5xl mx-auto mb-10">
+  <div class="section-heading"><div class="num">8</div><h2>AI Citations (AIO / ChatGPT)</h2></div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <!-- huge-germany.com -->
+    <div class="card p-5 text-center">
+      <div class="section-title" style="color:#004aef">huge-germany.com</div>
+      <div class="metric-val" style="color:#004aef;font-size:2.5rem">14</div>
+      <div class="metric-label">AI Overviews</div>
+      <div class="mt-4 text-2xl font-bold" style="color:#dc2626">2</div>
+      <div class="metric-label">ChatGPT citations</div>
+      <div class="mt-4 p-2 rounded-lg" style="background:#fef2f2">
+        <div class="text-xs" style="color:#dc2626;font-weight:600">Khoảng cách lớn</div>
+        <div class="text-xs text-ink-500 mt-1">Thiếu content informational chuyên sâu</div>
+      </div>
+    </div>
+    <!-- enic.vn -->
+    <div class="card p-5 text-center">
+      <div class="section-title" style="color:#0dd1ff">enic.vn</div>
+      <div class="metric-val" style="color:#0dd1ff;font-size:2.5rem">178</div>
+      <div class="metric-label">AI Overviews</div>
+      <div class="mt-4 text-2xl font-bold" style="color:#059669">88</div>
+      <div class="metric-label">ChatGPT citations</div>
+      <div class="mt-4 p-2 rounded-lg" style="background:#f0fdf4">
+        <div class="text-xs" style="color:#059669;font-weight:600">Dẫn đầu AI presence</div>
+        <div class="text-xs text-ink-500 mt-1">Blog hướng dẫn kỹ thuật chuyên sâu</div>
+      </div>
+    </div>
+    <!-- www.inax.com.vn -->
+    <div class="card p-5 text-center">
+      <div class="section-title" style="color:#00ffaa">www.inax.com.vn</div>
+      <div class="metric-val" style="color:#00ffaa;font-size:2.5rem">140</div>
+      <div class="metric-label">AI Overviews</div>
+      <div class="mt-4 text-2xl font-bold" style="color:#059669">91</div>
+      <div class="metric-label">ChatGPT citations</div>
+      <div class="mt-4 p-2 rounded-lg" style="background:#f0fdf4">
+        <div class="text-xs" style="color:#059669;font-weight:600">Thương hiệu uy tín</div>
+        <div class="text-xs text-ink-500 mt-1">Được nhiều nguồn trích dẫn tự nhiên</div>
+      </div>
+    </div>
+  </div>
+  <div class="card p-5 mt-4">
+    <div class="section-title mb-3">Phân tích AI Presence</div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <p class="text-sm text-ink-600 mb-2"><strong style="color:#0dd1ff">enic.vn dẫn đầu</strong> với 178 AI Overviews và 88 ChatGPT citations — kết quả từ blog hướng dẫn kỹ thuật chuyên sâu: so sánh vòi sen, hướng dẫn lắp đặt bồn cầu, tư vấn chọn lavabo. Nội dung đáp ứng đúng định dạng AI ưa trích dẫn: có tác giả chuyên môn, cấu trúc rõ, trả lời câu hỏi cụ thể.</p>
+        <p class="text-sm text-ink-600"><strong style="color:#00ffaa">inax.com.vn</strong> có 140 AIO + 91 ChatGPT — sức mạnh thương hiệu quốc tế giúp được trích dẫn tự nhiên, dù website không đầu tư content nhiều như enic.</p>
+      </div>
+      <div>
+        <p class="text-sm text-ink-600 mb-2"><strong style="color:#dc2626">huge-germany.com</strong> chỉ có 14 AIO và 2 ChatGPT citations — khoảng cách ~10–40× so với đối thủ. Nguyên nhân: website thiên về catalog sản phẩm, thiếu hoàn toàn nội dung informational (hướng dẫn, so sánh, tư vấn kỹ thuật).</p>
+        <p class="text-sm text-ink-600"><strong>Hướng xử lý:</strong> Xây dựng blog kỹ thuật (vòi sen áp lực cao / bồn cầu treo / lavabo chậu), chuẩn hóa E-E-A-T (tác giả, chứng nhận), sử dụng cấu trúc FAQ + schema để tối ưu AI Overviews.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="max-w-5xl mx-auto mt-12 pb-8">
+  <div style="background:var(--blue);border-radius:16px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:#fff;letter-spacing:-.01em">SEONGON</span>
+      <span style="color:rgba(255,255,255,.4);font-size:12px">·</span>
+      <span style="font-size:11px;color:rgba(255,255,255,.6)">AI-First Search Growth Partner</span>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.5);text-align:right">
+      Dữ liệu: Ahrefs · Tháng 6/2026<br>
+      huge-germany.com vs enic.vn vs inax.com.vn
+    </div>
+  </div>
+</div>
+
+<script>
+const BRAND  = '#004aef';
+const CYAN   = '#0dd1ff';
+const GREEN  = '#00ffaa';
+const DANGER = '#dc2626';
+const WARN   = '#d97706';
+const OK     = '#059669';
+const YELLOW = '#ffce00';
+const GRID   = '#dde3ff';
+const MONTHS = ['7/25','8/25','9/25','10/25','11/25','12/25','1/26','2/26','3/26','4/26','5/26','6/26'];
+
+// ── DR Chart — grouped bar, 3 domains × 3 DR buckets (clean unique domains) ──
+new Chart(document.getElementById('drChart'), {
+  type: 'bar',
+  data: {
+    labels: ['DR 0–30 (Low)', 'DR 31–70 (Mid)', 'DR 71–100 (High)'],
+    datasets: [
+      { label: 'huge-germany.com', data: [43, 7, 1],   backgroundColor: BRAND + 'cc' },
+      { label: 'enic.vn',          data: [100, 60, 25], backgroundColor: CYAN + 'cc' },
+      { label: 'inax.com.vn',      data: [190, 20, 14], backgroundColor: GREEN + 'cc' },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const totals = [51, 185, 224];
+            const pct = (ctx.raw / totals[ctx.datasetIndex] * 100).toFixed(1);
+            return ` ${ctx.dataset.label}: ${ctx.raw} domains (${pct}%)`;
+          }
+        }
+      }
+    },
+    scales: {
+      y: { ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } }, grid: { color: GRID } },
+      x: { ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } } }
+    }
+  }
+});
+
+// ── Spam Rate Chart — horizontal bar, % spam per domain ──
+new Chart(document.getElementById('spamChart'), {
+  type: 'bar',
+  data: {
+    labels: ['huge-germany.com', 'enic.vn', 'inax.com.vn'],
+    datasets: [
+      { label: 'Spam (%)', data: [96.1, 95.2, 34.3], backgroundColor: [DANGER+'cc', WARN+'cc', OK+'cc'] }
+    ]
+  },
+  options: {
+    responsive: true, indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + '% spam' } }
+    },
+    scales: {
+      x: { max: 100, ticks: { callback: v => v + '%', font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } }, grid: { color: GRID } },
+      y: { ticks: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } }
+    }
+  }
+});
+
+// ── URL Type Chart — horizontal stacked bar, 3 domains × 3 content types ──
+new Chart(document.getElementById('urlTypeChart'), {
+  type: 'bar',
+  data: {
+    labels: ['huge-germany.com', 'enic.vn', 'inax.com.vn'],
+    datasets: [
+      { label: 'Blog / Informational (%)', data: [74.0, 28.4, 46.8], backgroundColor: WARN + 'cc' },
+      { label: 'Sản phẩm / Danh mục (%)',  data: [24.9, 60.7, 44.5], backgroundColor: BRAND + 'cc' },
+      { label: 'Khác (%)',                  data: [1.1,  10.9, 8.7],  backgroundColor: GRID },
+    ]
+  },
+  options: {
+    responsive: true, indexAxis: 'y',
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } } },
+    scales: {
+      x: { stacked: true, max: 100, ticks: { callback: v => v + '%', font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } }, grid: { color: GRID } },
+      y: { stacked: true, ticks: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } }
+    }
+  }
+});
+
+// ── Ranking Chart — stacked bar, 3 domains × 5 position tiers ──
+new Chart(document.getElementById('rankingChart'), {
+  type: 'bar',
+  data: {
+    labels: ['huge-germany.com', 'enic.vn', 'inax.com.vn'],
+    datasets: [
+      { label: 'Top 1–3',       data: [0, 367, 338], backgroundColor: OK },
+      { label: 'Top 4–5',       data: [0, 118, 96],  backgroundColor: OK+'99' },
+      { label: 'Top 6–10',      data: [0, 280, 361], backgroundColor: WARN },
+      { label: 'Top 11–100',    data: [0, 285, 430], backgroundColor: WARN+'88' },
+      { label: 'Ngoài Top 100', data: [0, 73,  88],  backgroundColor: GRID },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } } },
+    scales: {
+      x: { stacked: true, ticks: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } },
+      y: { stacked: true, ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } }, grid: { color: GRID } }
+    }
+  }
+});
+
+// ── Traffic Chart — single Y axis, client first ──
+new Chart(document.getElementById('trafficChart'), {
+  type: 'line',
+  data: {
+    labels: MONTHS,
+    datasets: [
+      {
+        label: 'huge-germany.com',
+        data: [6914, 4797, 4590, 9942, 8718, 5754, 5192, 4448, 3144, 2606, 3202, 3786],
+        borderColor: DANGER, backgroundColor: DANGER+'22',
+        borderWidth: 2.5, pointRadius: 3, tension: 0.3, fill: false
+      },
+      {
+        label: 'enic.vn',
+        data: [82797, 74983, 62341, 76192, 88340, 95008, 92410, 86287, 83507, 77531, 103471, 98493],
+        borderColor: CYAN, backgroundColor: CYAN+'22',
+        borderWidth: 2.5, pointRadius: 3, tension: 0.3, fill: false
+      },
+      {
+        label: 'inax.com.vn',
+        data: [84879, 88178, 81641, 79198, 78308, 82322, 89584, 87448, 88073, 70892, 83485, 77681],
+        borderColor: GREEN, backgroundColor: GREEN+'22',
+        borderWidth: 2.5, pointRadius: 3, tension: 0.3, fill: false
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index' },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } }
+    },
+    scales: {
+      y: {
+        type: 'linear',
+        ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" }, callback: v => v >= 1000 ? (v/1000).toFixed(0)+'K' : v },
+        grid: { color: GRID }
+      },
+      x: { ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } } }
+    }
+  }
+});
+
+// ── Audit Chart — stacked bar, 5 categories × Error/Warning ──
+new Chart(document.getElementById('auditChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Metadata & On-page', 'Website Structure', 'Links', 'Page Speed', 'Bảo mật & Đo lường'],
+    datasets: [
+      { label: 'Lỗi (Error)',    data: [5, 3, 2, 2, 1], backgroundColor: DANGER + 'cc' },
+      { label: 'Cảnh báo (Warn)', data: [3, 3, 2, 2, 2], backgroundColor: WARN + 'cc' },
+    ]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { font: { size: 11, family: "'Plus Jakarta Sans',sans-serif" } } } },
+    scales: {
+      x: { stacked: true, ticks: { font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } } },
+      y: { stacked: true, ticks: { stepSize: 1, font: { size: 10, family: "'Plus Jakarta Sans',sans-serif" } }, grid: { color: GRID } }
+    }
+  }
+});
+</script>
+</body>
+</html>
